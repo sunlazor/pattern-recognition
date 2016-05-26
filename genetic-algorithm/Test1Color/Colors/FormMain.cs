@@ -53,6 +53,25 @@ namespace Colors
             }
         }
 
+        private void ShowSpecimens(List<Specimen> specimens)
+        {
+            for (int i = 0; i < specimens.Count; i++)
+            {
+                logText.AppendText(specimens[i].ToString(i));
+            }
+        }
+
+        private bool FindColor()
+        {
+            InitSpecimens(N, specimens);
+            ShowSpecimens(specimens);
+            for (int step = 0; step < STEPS; step++)
+            {
+
+            }
+            return false;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             // Инициализация

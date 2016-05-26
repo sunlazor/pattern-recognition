@@ -13,6 +13,18 @@ namespace Colors
         private double crossoverProbability;
         private int fit;
 
+        // Распечатать информацию о классе
+        public string ToString(int num)
+        {
+            string text = "#" + num.ToString() + ": ";
+            text += "R:" + color.R.ToString() + " ";
+            text += "G:" + color.R.ToString() + " ";
+            text += "B:" + color.R.ToString() + " ";
+            text += "P():" + crossoverProbability.ToString().Substring(0, 7) + " ";
+            text += "fit:" + fit.ToString();
+            return text;
+        }
+
         public Specimen(int count)
         {
             Random rnd = new Random();
