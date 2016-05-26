@@ -17,36 +17,45 @@ namespace Colors
             InitializeComponent();
         }
 
-        class Specimen
+        // Эталонный цвет к которому идет приближение
+        Color goal;
+        // Количество особей
+        const int N = 10;
+        // Сами особи
+        List<Specimen> specimens = new List<Specimen>();
+        // Количетсво итераций
+        const int STEPS = 1000;
+
+        private int Fitness(Color goal, Specimen candidate)
         {
-            Color color;
-            double crossoverProbability;
-            int fit;
+            int result = 
+                Math.Abs(goal.R - candidate.getRed())
+                + Math.Abs(goal.G - candidate.getGreen())
+                + Math.Abs(goal.B - candidate.getBlue());
+            return result;
         }
 
-        private int fitness(Color ideal, Color candidate)
+        private int StayInByte(int num)
         {
-            int res = Math.Abs(ideal.R - candidate.R)
-                + Math.Abs(ideal.G - candidate.G)
-                + Math.Abs(ideal.B - candidate.B);
-            //return Byte.MaxValue * 3 - res;
-            return res;
-        }
-
-        private int stayInChar(int arg)
-        {
-            if (arg < Byte.MinValue)
-                return Byte.MinValue;
-            else if (arg > Byte.MaxValue)
-                return Byte.MaxValue;
+            if (num < byte.MinValue)
+                return byte.MinValue;
+            else if (num > byte.MaxValue)
+                return byte.MaxValue;
             else
-                return arg;
+                return num;
+        }
+
+        private void InitSpecimens(ref Specimen species)
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < species.s; i++)
+            {
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            const int N = 10;
-            const int STEPS = 1000;
             // Инициализация
             Random rnd = new Random();
             label1.Visible = false;
