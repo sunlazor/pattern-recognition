@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace Colors
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
-        public Form1()
+        public FormMain()
         {
             InitializeComponent();
+        }
+
+        class Specimen
+        {
+            Color color;
+            double crossoverProbability;
+            int fit;
         }
 
         private int fitness(Color ideal, Color candidate)
@@ -22,7 +29,18 @@ namespace Colors
             int res = Math.Abs(ideal.R - candidate.R)
                 + Math.Abs(ideal.G - candidate.G)
                 + Math.Abs(ideal.B - candidate.B);
+            //return Byte.MaxValue * 3 - res;
             return res;
+        }
+
+        private int stayInChar(int arg)
+        {
+            if (arg < Byte.MinValue)
+                return Byte.MinValue;
+            else if (arg > Byte.MaxValue)
+                return Byte.MaxValue;
+            else
+                return arg;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,7 +52,7 @@ namespace Colors
             label1.Visible = false;
             Color[] condidates = new Color[N];
             Color[] condidatesPretenders = new Color[N];
-            float[] condidatesProbability = new float[N];
+            double[] condidatesProbability = new double[N];
             Pen pen = new Pen(Color.FromArgb(0, 0, 0));
             Point ptFrom = new Point();
             Point ptTo = new Point();
@@ -53,14 +71,14 @@ namespace Colors
                     rnd.Next(120, 135));
                 condidates[i] = ret;
                 condidatesProbability[i] = 1f / N;
-
                 logText.AppendText(condidates[i].ToString() + "\n");
             }
 
+            // Итерации обучения
             for (int step = 0; step < STEPS; ++step)
             {
                 // Отбор
-                float sumProbability;   // Сумма вероятностей для определения нынешнего номера особи
+                double sumProbability;   // Сумма вероятностей для определения нынешнего номера особи
                 int godFinger;  // Выбор особи
                 int currentSelection = 0;   // Номер особи
 
@@ -141,12 +159,15 @@ namespace Colors
                         {
                             case 0:
                                 R1 += rnd.Next(10) - 5;
+                                R1 = stayInChar(R1);
                                 break;
                             case 1:
                                 G1 += rnd.Next(10) - 5;
+                                G1 = stayInChar(G1);
                                 break;
                             case 5:
                                 B1 += rnd.Next(10) - 5;
+                                B1 = stayInChar(B1);
                                 break;
                         }
                     }
@@ -157,39 +178,44 @@ namespace Colors
                         {
                             case 0:
                                 R2 += rnd.Next(10) - 5;
+                                R2 = stayInChar(R2);
                                 break;
                             case 1:
                                 G2 += rnd.Next(10) - 5;
+                                G2 = stayInChar(G2);
                                 break;
                             case 5:
                                 B2 += rnd.Next(10) - 5;
+                                B2 = stayInChar(B2);
                                 break;
                         }
                     }
 
                     // Заполнение массива с особями
                     condidates[i] = Color.FromArgb(R1, G1, B1);
-                    
+
                     condidates[i + 1] = Color.FromArgb(R2, G2, B2);
                 }
 
                 int fitSumOne = 0;
-                float fitSumTwo = 0;
+                double fitSumTwo = 0;
                 int minFit = int.MaxValue;
                 // Проверка на приспособленность
                 for (int i = 0; i < N; ++i)
                 {
                     int fitCoeff = fitness(wantColor, condidates[i]);
-                    if (minFit > fitCoeff)
-                        minFit = fitCoeff;
-                    condidatesProbability[i] = fitCoeff;
                     if (fitCoeff == 0)
                     {
                         panel2.BackColor = condidates[i];
                         return;
                     }
                     else
+                    {
+                        if (minFit > fitCoeff)
+                            minFit = fitCoeff;
+                        condidatesProbability[i] = fitCoeff;
                         fitSumOne += fitCoeff;
+                    }
                 }
 
                 // Рисование графика приближения к эталону
@@ -203,7 +229,9 @@ namespace Colors
                 for (int i = 0; i < N; ++i)
                 {
                     condidatesProbability[i] -= minFit - 1;
-                    condidatesProbability[i] = 1 - (condidatesProbability[i] / fitSumOne);
+                    //condidatesProbability[i] = 1 - (condidatesProbability[i] / fitSumOne);
+                    //condidatesProbability[i] = 1 / (1 - Math.Exp(-1 * condidatesProbability[i]));
+                    condidatesProbability[i] = Math.Exp(condidatesProbability[i]);
                     fitSumTwo += condidatesProbability[i];
                 }
                 for (int i = 0; i < N; ++i)
