@@ -13,6 +13,14 @@ namespace Colors
         private double crossoverProbability;
         private int fit;
 
+        public Specimen(int count)
+        {
+            Random rnd = new Random();
+            color = Color.FromArgb(rnd.Next(10) + 118, rnd.Next(10) + 118, rnd.Next(10) + 118);
+            crossoverProbability = 1d / (double)count;
+            fit = 0;
+        }
+
         // Функции для цвета
         public void setColor(Color color)
         {

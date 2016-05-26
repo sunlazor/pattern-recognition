@@ -45,12 +45,11 @@ namespace Colors
                 return num;
         }
 
-        private void InitSpecimens(ref Specimen species)
+        private void InitSpecimens(int count, List<Specimen> specimens)
         {
-            Random rnd = new Random();
-            for (int i = 0; i < species.s; i++)
+            for (int i = 0; i < count; i++)
             {
-
+                specimens.Add(new Specimen(count));
             }
         }
 
