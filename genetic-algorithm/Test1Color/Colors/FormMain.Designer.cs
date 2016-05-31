@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.btColorSelection = new System.Windows.Forms.Button();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.pChosenOne = new System.Windows.Forms.Panel();
+            this.lbColorSelection = new System.Windows.Forms.Label();
             this.logText = new System.Windows.Forms.RichTextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pFoundOne = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.panGraph = new System.Windows.Forms.Panel();
+            this.pGraph = new System.Windows.Forms.Panel();
             this.btFind = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pChosenOne.SuspendLayout();
+            this.pFoundOne.SuspendLayout();
             this.SuspendLayout();
             // 
             // btColorSelection
@@ -53,23 +53,23 @@
             this.btColorSelection.UseVisualStyleBackColor = true;
             this.btColorSelection.Click += new System.EventHandler(this.button1_Click);
             // 
-            // panel1
+            // pChosenOne
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(42, 42);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
-            this.panel1.TabIndex = 2;
+            this.pChosenOne.Controls.Add(this.lbColorSelection);
+            this.pChosenOne.Location = new System.Drawing.Point(42, 42);
+            this.pChosenOne.Name = "pChosenOne";
+            this.pChosenOne.Size = new System.Drawing.Size(200, 100);
+            this.pChosenOne.TabIndex = 2;
             // 
-            // label1
+            // lbColorSelection
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(60, 40);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Выберите цвет";
+            this.lbColorSelection.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbColorSelection.AutoSize = true;
+            this.lbColorSelection.Location = new System.Drawing.Point(60, 40);
+            this.lbColorSelection.Name = "lbColorSelection";
+            this.lbColorSelection.Size = new System.Drawing.Size(83, 13);
+            this.lbColorSelection.TabIndex = 0;
+            this.lbColorSelection.Text = "Выберите цвет";
             // 
             // logText
             // 
@@ -80,13 +80,13 @@
             this.logText.TabIndex = 3;
             this.logText.Text = "";
             // 
-            // panel2
+            // pFoundOne
             // 
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(366, 42);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 100);
-            this.panel2.TabIndex = 3;
+            this.pFoundOne.Controls.Add(this.label2);
+            this.pFoundOne.Location = new System.Drawing.Point(366, 42);
+            this.pFoundOne.Name = "pFoundOne";
+            this.pFoundOne.Size = new System.Drawing.Size(200, 100);
+            this.pFoundOne.TabIndex = 3;
             // 
             // label2
             // 
@@ -98,12 +98,12 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Результирующий цвет";
             // 
-            // panGraph
+            // pGraph
             // 
-            this.panGraph.Location = new System.Drawing.Point(12, 412);
-            this.panGraph.Name = "panGraph";
-            this.panGraph.Size = new System.Drawing.Size(700, 257);
-            this.panGraph.TabIndex = 5;
+            this.pGraph.Location = new System.Drawing.Point(12, 412);
+            this.pGraph.Name = "pGraph";
+            this.pGraph.Size = new System.Drawing.Size(700, 257);
+            this.pGraph.TabIndex = 5;
             // 
             // btFind
             // 
@@ -143,17 +143,17 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btFind);
-            this.Controls.Add(this.panGraph);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pGraph);
+            this.Controls.Add(this.pFoundOne);
             this.Controls.Add(this.logText);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pChosenOne);
             this.Controls.Add(this.btColorSelection);
             this.Name = "FormMain";
             this.Text = "Генетический алгоритм - Подбор цвета";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pChosenOne.ResumeLayout(false);
+            this.pChosenOne.PerformLayout();
+            this.pFoundOne.ResumeLayout(false);
+            this.pFoundOne.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,13 +162,13 @@
         #endregion
 
         private System.Windows.Forms.Button btColorSelection;
-        private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.Panel pChosenOne;
         private System.Windows.Forms.RichTextBox logText;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lbColorSelection;
+        private System.Windows.Forms.Panel pFoundOne;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panGraph;
+        private System.Windows.Forms.Panel pGraph;
         private System.Windows.Forms.Button btFind;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Colors
 {
@@ -13,40 +9,45 @@ namespace Colors
         private double crossoverProbability;
         private int fit;
 
+        private static Random random = new Random();
+
         // Распечатать информацию о классе
         public string ToString(int num)
         {
             string text = "#" + num.ToString() + ": ";
             text += "R:" + color.R.ToString() + " ";
-            text += "G:" + color.R.ToString() + " ";
-            text += "B:" + color.R.ToString() + " ";
-            text += "P():" + crossoverProbability.ToString().Substring(0, 7) + " ";
-            text += "fit:" + fit.ToString();
+            text += "G:" + color.G.ToString() + " ";
+            text += "B:" + color.B.ToString() + " ";
+            text += "P:" + crossoverProbability.ToString().PadRight(5) + " ";
+            text += "fit:" + fit.ToString() + "\n";
             return text;
         }
 
         public Specimen(int count)
         {
-            Random rnd = new Random();
-            color = Color.FromArgb(rnd.Next(10) + 118, rnd.Next(10) + 118, rnd.Next(10) + 118);
+            color = Color.FromArgb(random.Next(120, 135), random.Next(120, 135), random.Next(120, 135));
             crossoverProbability = 1d / (double)count;
             fit = 0;
         }
 
         // Функции для цвета
-        public void setColor(Color color)
+        public void SetColor(Color color)
         {
             this.color = color;
         }
-        public int getRed()
+        public Color GetColor()
+        {
+            return color;
+        }
+        public int GetRed()
         {
             return color.R;
         }
-        public int getGreen()
+        public int GetGreen()
         {
             return color.G;
         }
-        public int getBlue()
+        public int GetBlue()
         {
             return color.B;
         }
@@ -54,7 +55,7 @@ namespace Colors
         // Функции вероятности скрещивания
 
         // Возвращает true в случае удачного присваивания
-        public bool setCP(double value)
+        public bool SetCP(double value)
         {
             if ((value <= 1d) && (value >= 0d))
             {
@@ -65,7 +66,7 @@ namespace Colors
                 return false;
         }
 
-        public double getCP()
+        public double GetCP()
         {
             return crossoverProbability;
         }
