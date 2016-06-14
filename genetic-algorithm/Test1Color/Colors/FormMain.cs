@@ -15,12 +15,14 @@ namespace Colors
         // Эталонный цвет к которому идет приближение
         Color goal;
         // Количество особей
-        const int N = 4;
+        const int N = 10;
         // Сами особи
         List<Specimen> specimens = new List<Specimen>();
         List<Specimen> condidates = new List<Specimen>();
         // Количетсво итераций
-        const int STEPS = 1000;
+        const int STEPS = 3000;
+        // Для функции подсчета веротяности скрещивания
+        const int DIVERSITY_COEFFICIENT = 750;
 
         private int Fitness(Color goal, Specimen candidate)
         {
@@ -107,6 +109,8 @@ namespace Colors
                 SetFitness(specimens);
                 CalcProbability(specimens);
 
+                DrawGraph(specimens);
+
                 if ((step + 1) % N == 0)  //???
                 {
                     logText.AppendText("Step:" + (step + 1).ToString() + "\n");
@@ -115,6 +119,11 @@ namespace Colors
                     logText.AppendText("Condidates:\n");
                     ShowSpecimens(condidates);
                 }
+            }
+            int speciNumber = TestSpecimens(specimens);
+            if(speciNumber != -1)
+            {
+                pFoundOne.BackColor = specimens[speciNumber].GetColor();
             }
         }
 
@@ -164,15 +173,15 @@ namespace Colors
         }
 
         // Приспособленность
-        private bool TestSpecimens(List<Specimen> specimens)
+        private int TestSpecimens(List<Specimen> specimens)
         {
             for (int i = 0; i < specimens.Count; i++)
             {
                 specimens[i].SetFit(Fitness(goal, specimens[i]));
                 if (specimens[i].GetFit() == 0)
-                    return true;
+                    return i;
             }
-            return false;
+            return -1;
         }
 
         // Вычисление выроятности скрещивания
@@ -186,7 +195,7 @@ namespace Colors
             }
             for (int i = 0; i < specimens.Count; i++)
             {
-                specimens[i].SetCP(Math.Exp(specimens[i].GetFit() / sumFitness));
+                specimens[i].SetCP(Math.Exp(DIVERSITY_COEFFICIENT * specimens[i].GetFit() / sumFitness));
                 sumProbability += specimens[i].GetCP();
             }
             for (int i = 0; i < specimens.Count; i++)
