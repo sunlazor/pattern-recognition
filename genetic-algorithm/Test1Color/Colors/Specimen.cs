@@ -57,13 +57,8 @@ namespace Colors
         // Возвращает true в случае удачного присваивания
         public bool SetCP(double value)
         {
-            if ((value <= 1d) && (value >= 0d))
-            {
                 crossoverProbability = value;
                 return true;
-            }
-            else
-                return false;
         }
 
         public double GetCP()
