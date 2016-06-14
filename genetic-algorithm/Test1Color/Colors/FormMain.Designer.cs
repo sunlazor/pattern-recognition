@@ -107,13 +107,13 @@
             // 
             // btFind
             // 
-            this.btFind.Enabled = false;
             this.btFind.Location = new System.Drawing.Point(269, 82);
             this.btFind.Name = "btFind";
             this.btFind.Size = new System.Drawing.Size(75, 23);
             this.btFind.TabIndex = 6;
             this.btFind.Text = "Найти цвет";
             this.btFind.UseVisualStyleBackColor = true;
+            this.btFind.Click += new System.EventHandler(this.btFind_Click);
             // 
             // label3
             // 

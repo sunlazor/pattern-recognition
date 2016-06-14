@@ -72,9 +72,14 @@ namespace Colors
         }
 
         // Коэффициент соответствия
-        public int Fit
+        public void SetFit(int fit)
         {
-            get; set;
+            this.fit = fit;
+        }
+
+        public int GetFit()
+        {
+            return fit;
         }
     }
 }

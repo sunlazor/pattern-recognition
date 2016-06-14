@@ -58,6 +58,14 @@ namespace Colors
             }
         }
 
+        private void SetFitness(List<Specimen> specimens)
+        {
+            for (int i = 0; i < specimens.Count; i++)
+            {
+                specimens[i].SetFit(Fitness(goal, specimens[i]));
+            }
+        }
+
         private void TeachSpecimens(List<Specimen> specimens)
         {
             Random random = new Random();
@@ -85,10 +93,21 @@ namespace Colors
                     condidates[j] = specimens[currentSelection];
                 }
 
+                if ((step + 1) % N == 0)
+                {
+                    logText.AppendText("Pre calc:\n");
+                    logText.AppendText("Step:" + (step + 1).ToString() + "\n");
+                    logText.AppendText("Specimens:\n");
+                    ShowSpecimens(specimens);
+                    logText.AppendText("Condidates:\n");
+                    ShowSpecimens(condidates);
+                }
+
                 CrossoverAndMutateSpecimens(specimens);
+                SetFitness(specimens);
                 CalcProbability(specimens);
 
-                if ((step + 1) % 10 == 0)
+                if ((step + 1) % N == 0)  //???
                 {
                     logText.AppendText("Step:" + (step + 1).ToString() + "\n");
                     logText.AppendText("Specimens:\n");
@@ -149,8 +168,8 @@ namespace Colors
         {
             for (int i = 0; i < specimens.Count; i++)
             {
-                specimens[i].Fit = Fitness(goal, specimens[i]);
-                if (specimens[i].Fit == 0)
+                specimens[i].SetFit(Fitness(goal, specimens[i]));
+                if (specimens[i].GetFit() == 0)
                     return true;
             }
             return false;
@@ -163,11 +182,11 @@ namespace Colors
             double sumProbability = 0;
             for (int i = 0; i < specimens.Count; i++)
             {
-                sumFitness += specimens[i].Fit;
+                sumFitness += specimens[i].GetFit();
             }
             for (int i = 0; i < specimens.Count; i++)
             {
-                specimens[i].SetCP(Math.Exp(specimens[i].Fit / sumFitness));
+                specimens[i].SetCP(Math.Exp(specimens[i].GetFit() / sumFitness));
                 sumProbability += specimens[i].GetCP();
             }
             for (int i = 0; i < specimens.Count; i++)
@@ -221,6 +240,11 @@ namespace Colors
                 logText.AppendText(i.ToString() + ":" + rnd.Next(10).ToString() + "\n");
             }
             
+        }
+
+        private void btFind_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
