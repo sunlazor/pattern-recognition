@@ -23,6 +23,11 @@ namespace Colors
         const int STEPS = 3000;
         // Для функции подсчета веротяности скрещивания
         const int DIVERSITY_COEFFICIENT = 750;
+        // График
+        Pen pen = new Pen(Color.FromArgb(0, 0, 0));
+        Point ptFrom = new Point();
+        Point ptTo = new Point();
+        Graphics gr;
 
         private int Fitness(Color goal, Specimen candidate)
         {
@@ -68,6 +73,21 @@ namespace Colors
             }
         }
 
+        private void DrawGraph(List<Specimen> specimens, int currentStep)
+        {
+            double fitSum = 0;
+            foreach (Specimen specimen in specimens)
+            {
+                fitSum += specimen.GetFit();
+            }
+            fitSum /= specimens.Count;
+            ptTo = new Point(Convert.ToInt32(currentStep * pGraph.Width / STEPS), Convert.ToInt32(fitSum / N * pGraph.Height / (byte.MaxValue * 3)));
+            if (currentStep == 0)
+                ptFrom = ptTo;
+            gr.DrawLine(pen, ptFrom, ptTo);
+            ptFrom = ptTo;
+        }
+
         private void TeachSpecimens(List<Specimen> specimens)
         {
             Random random = new Random();
@@ -109,7 +129,7 @@ namespace Colors
                 SetFitness(specimens);
                 CalcProbability(specimens);
 
-                DrawGraph(specimens);
+                DrawGraph(specimens, step);
 
                 if ((step + 1) % N == 0)  //???
                 {
@@ -217,10 +237,13 @@ namespace Colors
         {
             // Очистка предыдущей попытки
             specimens.Clear();
+            condidates.Clear();
             logText.Clear();
             pFoundOne.BackColor = Color.FromKnownColor(KnownColor.Control);
             pGraph.BackColor = Color.FromKnownColor(KnownColor.Control);
             lbColorSelection.Visible = true;
+            gr = pGraph.CreateGraphics();   // Куда это правильнее помещать? В OnCreate панели?
+            gr.Clear(Color.FromKnownColor(KnownColor.Control));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -233,12 +256,6 @@ namespace Colors
             lbColorSelection.Visible = false;
 
             FindColor();
-            
-            //Pen pen = new Pen(Color.FromArgb(0, 0, 0));
-            //Point ptFrom = new Point();
-            //Point ptTo = new Point();
-
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -248,7 +265,6 @@ namespace Colors
             {
                 logText.AppendText(i.ToString() + ":" + rnd.Next(10).ToString() + "\n");
             }
-            
         }
 
         private void btFind_Click(object sender, EventArgs e)
