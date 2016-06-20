@@ -25,10 +25,17 @@ namespace Colors
 
         public Specimen(int count)
         {
-            int component = random.Next(120, 135);
+            int component = random.Next(20, 200);
             color = Color.FromArgb(component, component, component);
             crossoverProbability = 1d / (double)count;
             fit = 0;
+        }
+
+        public void CopySpecimen(Specimen spec)
+        {
+            color = spec.color;
+            crossoverProbability = spec.crossoverProbability;
+            fit = spec.fit;
         }
 
         // Функции для цвета
