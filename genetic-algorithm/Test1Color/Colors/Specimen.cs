@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Drawing;
 
-namespace Colors
+namespace Genetic
 {
     class Specimen
     {
-        private Color color;
+        private const double MUTATE_PROBABILITY = 0.1d;
+        private const byte MUTATE_INTERVAL = 5;
+
+        private byte color;
         private double crossoverProbability;
         private int fit;
 
+        private static Random random = new Random();
+
+        // Производит мутацию значения "цвета"
+        // Пример: 100 и интервал_мутации = 5 -> 98-102
         public void Mutate()
-        { }
+        {
+            int mutation = random.Next(MUTATE_INTERVAL) - (MUTATE_INTERVAL / 2);
+            color = Utils.StayInByte(color + mutation);
+        }
 
         override public string ToString()
         {
             return "Specimen";
         }
-
-        //private static Random random = new Random();
 
         //// Распечатать информацию о классе
         //public string ToString(int num)

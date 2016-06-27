@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Colors
+namespace Genetic
 {
     public partial class FormMain : Form
     {
@@ -38,15 +38,7 @@ namespace Colors
             return result;
         }
 
-        private int StayInByte(int num)
-        {
-            if (num < byte.MinValue)
-                return byte.MinValue;
-            else if (num > byte.MaxValue)
-                return byte.MaxValue;
-            else
-                return num;
-        }
+
 
         private void InitSpecimens(int count, List<Specimen> specimens)
         {
@@ -183,13 +175,6 @@ namespace Colors
                 else if (godFinger < 30)
                     B2 = Mutate(B2, godFinger);
             }
-        }
-
-        // Мутация
-        private int Mutate(int from, int mutation)
-        {
-            mutation = (mutation % 5) - 2;
-            return StayInByte(from + mutation);
         }
 
         // Приспособленность

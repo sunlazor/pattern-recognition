@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Colors
+namespace Genetic
 {
     class Algorithm
     {

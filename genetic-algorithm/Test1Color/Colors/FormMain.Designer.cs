@@ -1,4 +1,4 @@
-﻿namespace Colors
+﻿namespace Genetic
 {
     partial class FormMain
     {
