@@ -20,6 +20,7 @@ namespace Genetic
                 return generation.Count;
             }
         }
+
         // Начальное поколение
         public Generation() : this(DEFAULT_SIZE)
         {
@@ -96,7 +97,35 @@ namespace Genetic
         }
 
         public void CalculateCrossoverProbability()
-        { }
+        {
+            double value = 0;
+            if (GoalColor > byte.MaxValue / 2)
+            {
+
+            }
+//            +double max = 0;
+//            +            if (goal.B > 128)
+//                +max = goal.B;
+//            +            else
+//+max = 255d - goal.B;
+//            +
+//            +double sum = 0;
+//            +
+//             for (int i = 0; i < specimens.Count; i++)
+//            {
+//                +specimens[i].SetCP(1 - (specimens[i].GetFit() / max));
+//                +sum += specimens[i].GetCP();
+//            }
+//            +            //for (int i = 0; i < specimens.Count; i++)
+//            +            //{
+//            +            //    specimens[i].SetCP(Math.Exp(/*DIVERSITY_COEFFICIENT **/ 1 + specimens[i].GetCP()));
+//            +            //    sum2 += specimens[i].GetCP();
+//            +            //}
+//             for (int i = 0; i < specimens.Count; i++)
+//            {
+//                +specimens[i].SetCP(specimens[i].GetCP() / sum);
+//            }
+        }
 
         public override string ToString()
         {
