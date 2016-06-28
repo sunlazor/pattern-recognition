@@ -22,7 +22,7 @@ namespace Colors
         // Количетсво итераций
         const int STEPS = 3000;
         // Для функции подсчета веротяности скрещивания
-        const int DIVERSITY_COEFFICIENT = 250;
+        const int DIVERSITY_COEFFICIENT = 10;
         // График
         Pen pen = new Pen(Color.FromArgb(0, 0, 0));
         Point ptFrom = new Point();
@@ -32,13 +32,13 @@ namespace Colors
         private bool FindColor()
         {
             // Создание начальной популяции
-            InitSpecimens(N, specimens);
+            InitSpecimens(N);
             ShowSpecimens(specimens);
             TeachSpecimens(specimens);
             return false;
         }
 
-        private void InitSpecimens(int count, List<Specimen> specimens)
+        private void InitSpecimens(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -47,18 +47,18 @@ namespace Colors
             }
         }
 
-        private void ShowSpecimens(List<Specimen> specimens)
+        private void ShowSpecimens(List<Specimen> spec)
         {
-            for (int i = 0; i < specimens.Count; i++)
+            for (int i = 0; i < spec.Count; i++)
             {
-                logText.AppendText(specimens[i].ToString(i));
+                logText.AppendText(spec[i].ToString(i));
             }
         }
 
-        private void TeachSpecimens(List<Specimen> specimens)
+        private void TeachSpecimens(List<Specimen> spec)
         {
             Random random = new Random();
-            CopySpecimens(condidates, specimens);
+            CopySpecimens(condidates, spec);
             // Итерации обучения
             for (int step = 0; step < STEPS; ++step)
             {
@@ -73,14 +73,14 @@ namespace Colors
                     godFinger = random.Next(100);
                     for (int i = 0; i < N; ++i)
                     {
-                        sumProbability += specimens[i].GetCP();
+                        sumProbability += spec[i].GetCP();
                         if ((sumProbability * 100) > godFinger)
                         {
                             currentSelection = i;
                             break;
                         }
                     }
-                    condidates[j] = specimens[currentSelection];
+                    condidates[j].CopySpecimen(spec[currentSelection]);
                 }
 
                 if ((step + 1) % N == 0)
@@ -88,7 +88,7 @@ namespace Colors
                     logText.AppendText("Pre calc:\n");
                     logText.AppendText("Step:" + (step + 1).ToString() + "\n");
                     logText.AppendText("Specimens:\n");
-                    ShowSpecimens(specimens);
+                    ShowSpecimens(spec);
                     logText.AppendText("Condidates:\n");
                     ShowSpecimens(condidates);
                 }
@@ -108,7 +108,7 @@ namespace Colors
                 {
                     logText.AppendText("Step:" + (step + 1).ToString() + "\n");
                     logText.AppendText("Specimens:\n");
-                    ShowSpecimens(specimens);
+                    ShowSpecimens(spec);
                     logText.AppendText("Condidates:\n");
                     ShowSpecimens(condidates);
                 }
@@ -116,9 +116,9 @@ namespace Colors
             int speciNumber = TestSpecimens(condidates);
             if (speciNumber != -1)
             {
-                pFoundOne.BackColor = specimens[speciNumber].GetColor();
+                pFoundOne.BackColor = spec[speciNumber].GetColor();
             }
-            CopySpecimens(specimens, condidates);
+            CopySpecimens(spec, condidates);
         }
 
         private void CopySpecimens(List<Specimen> to, List<Specimen> from)
@@ -132,10 +132,10 @@ namespace Colors
 
         private int Fitness(Color goal, Specimen candidate)
         {
-            int result = 
-                Math.Abs(goal.R - candidate.GetRed())
-                + Math.Abs(goal.G - candidate.GetGreen())
-                + Math.Abs(goal.B - candidate.GetBlue());
+            int result =
+                Math.Abs(goal.R - candidate.GetRed());
+                //+ Math.Abs(goal.G - candidate.GetGreen())
+                //+ Math.Abs(goal.B - candidate.GetBlue());
             return result;
         }
 
@@ -174,14 +174,14 @@ namespace Colors
 
         
 
-        // Скрещивание
+        // Скрещивание ( функция ГОВНО !!! )
         private void CrossoverAndMutateSpecimens(List<Specimen> pretenders)
         {
             Random random;
             int godFinger;
             
-            int R1, R2, G1, G2, B1, B2;
-            for (int i = 0; i < N / 2; ++i)
+            //int R1, R2, G1, G2, B1, B2;
+            for (int i = 0; i < N - 2 /*N / 2*/; ++i)
             {
                 random = new Random();
                 //// Скрещивание
@@ -197,9 +197,26 @@ namespace Colors
                 // Скрещивание временно просто как присваивание цвета
                 godFinger = random.Next(100);
                 if (godFinger < 50)
-                    pretenders[i].SetColor(pretenders[i + 1].GetColor());
-                else
-                    pretenders[i + 1].SetColor(pretenders[i].GetColor());
+                {
+                    int col = pretenders[i].GetBlue();
+                    int col2 = pretenders[i+1].GetBlue();
+
+                    int tmp = col & 240; // 11110000
+                    int tmp2 = col2 & 31; // 00001111
+                    int res = tmp | tmp2;
+                    pretenders[i].SetColor(Color.FromArgb(res, res, res));
+
+                    tmp = col2 & 240; // 11110000
+                    tmp2 = col & 31; // 00001111
+                    res = tmp | tmp2;
+                    pretenders[i+1].SetColor(Color.FromArgb(res, res, res));
+                                      
+                    ++i;
+                }
+                    
+                //else
+                //    pretenders[i + 1].SetColor(pretenders[i].GetColor());
+                
                 //// Мутация
                 //random = new Random();
                 //godFinger = random.Next(300);
@@ -271,24 +288,28 @@ namespace Colors
             //{
             //    specimens[i].SetCP(specimens[i].GetCP() / sumProbability);
             //}
-            double sum1 = 0;
-            double sum2 = 0;
+
+            double max = 0;
+            if (goal.B > 128)
+                max = goal.B;
+            else
+                max = 255d - goal.B;
+
+            double sum = 0;
+
             for (int i = 0; i < specimens.Count; i++)
             {
-                sum1 += specimens[i].GetFit();
+                specimens[i].SetCP(1 - (specimens[i].GetFit() / max));
+                sum += specimens[i].GetCP();
             }
+            //for (int i = 0; i < specimens.Count; i++)
+            //{
+            //    specimens[i].SetCP(Math.Exp(/*DIVERSITY_COEFFICIENT **/ 1 + specimens[i].GetCP()));
+            //    sum2 += specimens[i].GetCP();
+            //}
             for (int i = 0; i < specimens.Count; i++)
             {
-                specimens[i].SetCP(1 - (specimens[i].GetFit() / sum1));
-            }
-            for (int i = 0; i < specimens.Count; i++)
-            {
-                specimens[i].SetCP(Math.Exp(DIVERSITY_COEFFICIENT * specimens[i].GetCP()));
-                sum2 += specimens[i].GetCP();
-            }
-            for (int i = 0; i < specimens.Count; i++)
-            {
-                specimens[i].SetCP(specimens[i].GetCP() / sum2);
+                specimens[i].SetCP(specimens[i].GetCP() / sum);
             }
         }
 
@@ -310,6 +331,7 @@ namespace Colors
         private void button1_Click(object sender, EventArgs e)
         {
             ClearAll();
+
             // Выбор цвета
             colorDialog.ShowDialog();
             goal = colorDialog.Color;
