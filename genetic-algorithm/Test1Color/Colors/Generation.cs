@@ -101,30 +101,22 @@ namespace Genetic
             double value = 0;
             if (GoalColor > byte.MaxValue / 2)
             {
-
+                value = GoalColor;
             }
-//            +double max = 0;
-//            +            if (goal.B > 128)
-//                +max = goal.B;
-//            +            else
-//+max = 255d - goal.B;
-//            +
-//            +double sum = 0;
-//            +
-//             for (int i = 0; i < specimens.Count; i++)
-//            {
-//                +specimens[i].SetCP(1 - (specimens[i].GetFit() / max));
-//                +sum += specimens[i].GetCP();
-//            }
-//            +            //for (int i = 0; i < specimens.Count; i++)
-//            +            //{
-//            +            //    specimens[i].SetCP(Math.Exp(/*DIVERSITY_COEFFICIENT **/ 1 + specimens[i].GetCP()));
-//            +            //    sum2 += specimens[i].GetCP();
-//            +            //}
-//             for (int i = 0; i < specimens.Count; i++)
-//            {
-//                +specimens[i].SetCP(specimens[i].GetCP() / sum);
-//            }
+            else
+                value = byte.MaxValue - GoalColor;
+
+            double probabilitySum = 0;
+
+            for (int i = 0; i < Size; i++)
+            {
+                generation[i].CrossoverProbability = 1 - generation[i].Fit / value;
+                probabilitySum += generation[i].CrossoverProbability;
+            }
+            for (int i = 0; i < Size; i++)
+            {
+                generation[i].CrossoverProbability /= probabilitySum;
+            }
         }
 
         public override string ToString()
