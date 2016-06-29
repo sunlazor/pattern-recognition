@@ -26,8 +26,9 @@ namespace Genetic
         {
         }
 
-        public Generation(int size, byte goal = byte.MaxValue)
+        public Generation(int size, byte goal = 120) //byte.MaxValue) //!!!!!!!!
         {
+            generation = new List<Specimen>(size);
             if (size <= 0 || size >= int.MaxValue)
             {
                 size = DEFAULT_SIZE;
@@ -54,8 +55,17 @@ namespace Genetic
             }
         }
 
+        // Мутация
+        public void Mutate()
+        {
+            for (int i = 0; i < Size; i++)
+            {
+                generation[i].Mutate();
+            }
+        }
+
         // Скрещивание особей
-        void Crossover()
+        public void Crossover()
         {
             for (int i = 0; i < Size; i += 2)
             {
@@ -121,7 +131,12 @@ namespace Genetic
 
         public override string ToString()
         {
-            return "Generation";
+            string result = "";
+            for (int i = 0; i < Size; i++)
+            {
+                result += generation[i].ToString();
+            }
+            return result;
         }
     }
 }
