@@ -56,7 +56,7 @@ namespace Genetic
             goal = colorDialog.Color;
             pChosenOne.BackColor = goal;
             lbColorSelection.Visible = false;
-            Algorithm main = new Algorithm();
+            Algorithm main = new Algorithm(this);
             main.Work();
         }
 

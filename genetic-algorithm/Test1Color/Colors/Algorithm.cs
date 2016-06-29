@@ -13,6 +13,12 @@ namespace Genetic
         private int currentGenerationNumber = 0;
 
         Generation currentGeneration;
+        FormMain form;
+
+        public Algorithm(FormMain logForm)
+        {
+            form = logForm;
+        }
 
         private string PrintCurrentGeneration()
         {
@@ -32,7 +38,7 @@ namespace Genetic
                 else
                     currentGeneration = new Generation(currentGeneration);
                 currentGeneration.CalculateFitness();
-                Console.Write(PrintCurrentGeneration());
+                form.WriteLog(PrintCurrentGeneration());
                 if (currentGeneration.MinFitness() == 0)
                     return currentGenerationNumber;
                 currentGeneration.Crossover();
