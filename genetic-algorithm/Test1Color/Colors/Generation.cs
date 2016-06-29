@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
 
 namespace Genetic
 {
@@ -29,6 +28,7 @@ namespace Genetic
         public Generation(int size, byte goal = 120) //byte.MaxValue) //!!!!!!!!
         {
             generation = new List<Specimen>(size);
+
             if (size <= 0 || size >= int.MaxValue)
             {
                 size = DEFAULT_SIZE;
@@ -69,18 +69,18 @@ namespace Genetic
         {
             for (int i = 0; i < Size; i += 2)
             {
-                byte value1 = generation[i].Color;
-                byte value2 = generation[i + 1].Color;
+                byte value1 = generation[i].Color.B;
+                byte value2 = generation[i + 1].Color.B;
 
                 int tmp1 = value1 & 240; // 11110000
                 int tmp2 = value2 & 31; // 00001111
-                int res = tmp1 | tmp2;
-                generation[i].Color = Utils.StayInByte(res);
+                byte colorChannel = Utils.StayInByte(tmp1 | tmp2);
+                generation[i].Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
 
                 tmp1 = value2 & 240; // 11110000
                 tmp2 = value1 & 31; // 00001111
-                res = tmp1 | tmp2;
-                generation[i + 1].Color = Utils.StayInByte(res);
+                colorChannel = Utils.StayInByte(tmp1 | tmp2);
+                generation[i + 1].Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
             }
         }
 
@@ -88,7 +88,7 @@ namespace Genetic
         {
             for (int i = 0; i < Size; i++)
             {
-                generation[i].Fit = Math.Abs(GoalColor - generation[i].Color);
+                generation[i].Fit = Math.Abs(GoalColor - generation[i].Color.B);
             }
         }
 

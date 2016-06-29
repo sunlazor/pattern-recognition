@@ -34,9 +34,7 @@ namespace Genetic
                 currentGeneration.CalculateFitness();
                 Console.Write(PrintCurrentGeneration());
                 if (currentGeneration.MinFitness() == 0)
-                {
                     return currentGenerationNumber;
-                }
                 currentGeneration.Crossover();
                 currentGeneration.Mutate();
                 currentGeneration.CalculateCrossoverProbability();

@@ -44,6 +44,11 @@ namespace Genetic
             //ptFrom = ptTo;
         }
 
+        public void WriteLog(string text)
+        {
+            logText.AppendText(text);
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             // Выбор цвета

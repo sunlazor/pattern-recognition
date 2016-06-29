@@ -8,15 +8,17 @@ namespace Genetic
         private const double MUTATE_PROBABILITY = 0.1d;
         private const byte MUTATE_INTERVAL = 5;
 
-        public byte Color { get; set; }
+        public Color Color { get; set; }
         public double CrossoverProbability { get; set; }
         public int Fit { get; set; }
 
         private static Random random = new Random();
-
+        
         public Specimen()
         {
-            Color = Utils.StayInByte(random.Next(75, 175));
+            //rewrite for multichannel
+            byte colorChannel = Utils.StayInByte(random.Next(75, 175));
+            Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
             CrossoverProbability = 0;
             Fit = 0;
         }
@@ -25,8 +27,10 @@ namespace Genetic
         // Пример: 100 и интервал_мутации = 5 -> 98-102
         public void Mutate()
         {
+            byte channelValue = Color.B;
             int mutation = random.Next(MUTATE_INTERVAL) - (MUTATE_INTERVAL / 2);
-            Color = Utils.StayInByte(Color + mutation);
+            byte colorChannel = Utils.StayInByte(channelValue + mutation);
+            Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
         }
 
         // Распечатать информацию о классе
