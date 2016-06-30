@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Genetic", "Colors\Genetic.csproj", "{F9B5E2CD-0BDF-408C-87F0-6F0DA0844575}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{CDAED8BA-E878-4C2F-87DE-32B54E3C8CE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural", "Neural\Neural.csproj", "{1C11F709-E148-4154-A8F8-420DFBE4748A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{F9B5E2CD-0BDF-408C-87F0-6F0DA0844575}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9B5E2CD-0BDF-408C-87F0-6F0DA0844575}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9B5E2CD-0BDF-408C-87F0-6F0DA0844575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDAED8BA-E878-4C2F-87DE-32B54E3C8CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDAED8BA-E878-4C2F-87DE-32B54E3C8CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDAED8BA-E878-4C2F-87DE-32B54E3C8CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDAED8BA-E878-4C2F-87DE-32B54E3C8CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C11F709-E148-4154-A8F8-420DFBE4748A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C11F709-E148-4154-A8F8-420DFBE4748A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C11F709-E148-4154-A8F8-420DFBE4748A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C11F709-E148-4154-A8F8-420DFBE4748A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
