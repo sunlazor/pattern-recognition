@@ -15,8 +15,8 @@ namespace Neural
         public double[] w; // Веса входов
         public double y; // Выходы
         public double sum; // Значащая сумма
-        public double h;   // хз
-        public double w0;  // хз, дополнительный вес
+        public double h;   // Коэффициент обучения
+        public double w0;  // Дополнительный вес
 
         public Neuron(int inputCount)
         {

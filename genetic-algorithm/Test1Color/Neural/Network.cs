@@ -8,7 +8,7 @@ namespace Neural
     class Network
     {
         // Нейроны
-        List<Neuron> neurons;
+        public List<Neuron> neurons;
         // Количество нейронов в сети
         private int NeuronCount { get; set; }
         // Количество входов нейронов
