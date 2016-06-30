@@ -24,5 +24,15 @@ namespace Neural
                 neurons.Add(new Neuron(InputCount));
             }
         }
+
+        public static double Activation(double x)
+        {
+            return 1d / (1 + Math.Pow(Math.E, -x)) - 0.5;
+        }
+
+        public static double ActivationDerevative(double x)
+        {
+            return Math.Pow(Math.E, -x) / Math.Pow((1 + Math.Pow(Math.E, -x)), 2);
+        }
     }
 }
