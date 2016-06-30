@@ -25,6 +25,23 @@ namespace Neural
             }
         }
 
+        // Расчет для каждого нейрона
+        void CalculateNeurons()
+        {
+            double Net = 0;// взвешенная сумма входных сигналов,
+            for (int j = 0; j < neurons.Count; j++)
+            {
+                for (int i = 0; i < InputCount; ++i)
+                {
+                    // Функция взвешенной  суммы (сумматор)
+                    Net += (neurons[j].x[i] - 0.5/*В случае бинарных входов нужно 0.5*/) * neurons[j].w[i];
+                }
+                Net += neurons[j].w0;
+                neurons[j].sum = Net;
+                neurons[j].y = Activation(Net);
+            }
+        }
+
         public static double Activation(double x)
         {
             return 1d / (1 + Math.Pow(Math.E, -x)) - 0.5;
