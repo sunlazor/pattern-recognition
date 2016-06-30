@@ -11,12 +11,12 @@ namespace Neural
 
         static Random random = new Random();
 
-        double[] x;   // Значение входа нейрона
-        double[] w; // Веса входов
-        double y; // Выходы
-        double sum; // Значащая сумма
-        double h;   // хз
-        double w0;  // хз, дополнительный вес
+        public double[] x;   // Значение входа нейрона
+        public double[] w; // Веса входов
+        public double y; // Выходы
+        public double sum; // Значащая сумма
+        public double h;   // хз
+        public double w0;  // хз, дополнительный вес
 
         public Neuron(int inputCount)
         {
