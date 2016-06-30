@@ -13,8 +13,10 @@ namespace Neural
         private int NeuronCount { get; set; }
         // Количество входов нейронов
         private int InputCount { get; set; }
+        // Форма для вывода
+        FormMain outForm;
 
-        public Network(int neuronCount, int neuronInputCount)
+        public Network(int neuronCount, int neuronInputCount, FormMain )
         {
             NeuronCount = neuronCount;
             InputCount = neuronInputCount;
@@ -41,21 +43,21 @@ namespace Neural
 
         // Определние образа
         // Возвращает номер нейрона  с макс выходом
-        public int Work()
+        public int Work(FormMain form)
         {
+            form = outForm;
             double Max = 0;
             int Num = 0;
             for (int i = 0; i < NeuronCount; i++)
             {
                 CalculateNeuron(i);
-                switch (i)
-                {
-                    case 0: Console.WriteLine(neurons[0].y); break;
-                    case 1: Console.WriteLine(neurons[1].y); break;
-                    case 2: Console.WriteLine(neurons[2].y); break;
-                    case 3: Console.WriteLine(neurons[3].y); break;
-                    default: break;
-                }
+                //switch (i)
+                //{
+                //    case 0: form.output[i].Text = neurons[i].y.ToString(); break;
+                //    case 1: Console.WriteLine(neurons[1].y); break;
+                //    default: break;
+                //}
+                form.output[i].Text = neurons[i].y.ToString();
                 if (neurons[i].y > Max)
                 {
                     Max = neurons[i].y;
@@ -69,7 +71,7 @@ namespace Neural
         public int Teach(int Num)
         {
             // Расчет весов
-            Work();
+            Work(outForm);
             for (int i = 0; i < NeuronCount; ++i)
             {
                 double t = 0;
