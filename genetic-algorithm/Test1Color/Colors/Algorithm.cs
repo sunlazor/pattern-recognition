@@ -34,7 +34,7 @@ namespace Genetic
             for (currentGenerationNumber = 0; currentGenerationNumber < GENERATION_COUNT; currentGenerationNumber++)
             {
                 if (currentGeneration == null)
-                    currentGeneration = new Generation(GENERATION_SIZE);
+                    currentGeneration = new Generation(GENERATION_SIZE, form.goal);
                 else
                     currentGeneration = new Generation(currentGeneration);
                 currentGeneration.CalculateFitness();
@@ -45,7 +45,7 @@ namespace Genetic
                 currentGeneration.Mutate();
                 currentGeneration.CalculateCrossoverProbability();
             }
-            return 0;
+            return -1;
         }
     }
 }

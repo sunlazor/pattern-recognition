@@ -6,7 +6,8 @@ namespace Genetic
 {
     class Generation
     {
-        public readonly byte GoalColor;
+        public readonly Color GoalColor;
+        private readonly static Color defaultColor = Color.FromKnownColor(KnownColor.Aqua);
 
         private const int DEFAULT_SIZE = 10;
 
@@ -21,11 +22,11 @@ namespace Genetic
         }
 
         // Начальное поколение
-        public Generation() : this(DEFAULT_SIZE)
+        public Generation() : this(DEFAULT_SIZE, defaultColor)
         {
         }
 
-        public Generation(int size, byte goal = 120) //byte.MaxValue) //!!!!!!!!
+        public Generation(int size, Color goalColor)
         {
             generation = new List<Specimen>(size);
 
@@ -41,7 +42,7 @@ namespace Genetic
             {
                 generation.Add(new Specimen());
             }
-            GoalColor = goal;
+            GoalColor = goalColor;
         }
 
         // Последующие поколения
@@ -69,18 +70,45 @@ namespace Genetic
         {
             for (int i = 0; i < Size; i += 2)
             {
-                byte value1 = generation[i].Color.B;
-                byte value2 = generation[i + 1].Color.B;
+                // R
+                byte value1 = generation[i].Color.R;
+                byte value2 = generation[i + 1].Color.R;
 
                 int tmp1 = value1 & 240; // 11110000
                 int tmp2 = value2 & 31; // 00001111
-                byte colorChannel = Utils.StayInByte(tmp1 | tmp2);
-                generation[i].Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
+                byte colorChannelR1 = Utils.StayInByte(tmp1 | tmp2);
 
                 tmp1 = value2 & 240; // 11110000
                 tmp2 = value1 & 31; // 00001111
-                colorChannel = Utils.StayInByte(tmp1 | tmp2);
-                generation[i + 1].Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
+                byte colorChannelR2 = Utils.StayInByte(tmp1 | tmp2);
+
+                // G
+                value1 = generation[i].Color.G;
+                value2 = generation[i + 1].Color.G;
+
+                tmp1 = value1 & 240; // 11110000
+                tmp2 = value2 & 31; // 00001111
+                byte colorChannelG1 = Utils.StayInByte(tmp1 | tmp2);
+
+                tmp1 = value2 & 240; // 11110000
+                tmp2 = value1 & 31; // 00001111
+                byte colorChannelG2 = Utils.StayInByte(tmp1 | tmp2);
+
+                // B
+
+                value1 = generation[i].Color.B;
+                value2 = generation[i + 1].Color.B;
+
+                tmp1 = value1 & 240; // 11110000
+                tmp2 = value2 & 31; // 00001111
+                byte colorChannelB1 = Utils.StayInByte(tmp1 | tmp2);
+
+                tmp1 = value2 & 240; // 11110000
+                tmp2 = value1 & 31; // 00001111
+                byte colorChannelB2 = Utils.StayInByte(tmp1 | tmp2);
+                
+                generation[i].Color = Color.FromArgb(colorChannelR1, colorChannelG1, colorChannelB1);
+                generation[i + 1].Color = Color.FromArgb(colorChannelR2, colorChannelG2, colorChannelB2);
             }
         }
 
@@ -88,7 +116,10 @@ namespace Genetic
         {
             for (int i = 0; i < Size; i++)
             {
-                generation[i].Fit = Math.Abs(GoalColor - generation[i].Color.B);
+                generation[i].Fit = 
+                    Math.Abs(GoalColor.R - generation[i].Color.R) +
+                    Math.Abs(GoalColor.G - generation[i].Color.G) +
+                    Math.Abs(GoalColor.B - generation[i].Color.B);
             }
         }
 
@@ -109,12 +140,16 @@ namespace Genetic
         public void CalculateCrossoverProbability()
         {
             double value = 0;
-            if (GoalColor > byte.MaxValue / 2)
-            {
-                value = GoalColor;
-            }
+
+            double midValue =
+                Convert.ToDouble(GoalColor.B + GoalColor.R + GoalColor.G)
+                /
+                Convert.ToDouble(byte.MaxValue * 3);
+
+            if (midValue > byte.MaxValue / 2)
+                value = midValue;
             else
-                value = byte.MaxValue - GoalColor;
+                value = byte.MaxValue - midValue;
 
             double probabilitySum = 0;
 

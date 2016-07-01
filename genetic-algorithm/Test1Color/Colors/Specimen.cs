@@ -16,9 +16,7 @@ namespace Genetic
         
         public Specimen()
         {
-            //rewrite for multichannel
-            byte colorChannel = Utils.StayInByte(random.Next(75, 175));
-            Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
+            Color = Color.FromArgb(random.Next(75, 175), random.Next(75, 175),random.Next(75, 175));
             CrossoverProbability = 0;
             Fit = 0;
         }
@@ -27,10 +25,19 @@ namespace Genetic
         // Пример: 100 и интервал_мутации = 5 -> 98-102
         public void Mutate()
         {
-            byte channelValue = Color.B;
+            //R
+            byte channelValueR = Color.R;
             int mutation = random.Next(MUTATE_INTERVAL) - (MUTATE_INTERVAL / 2);
-            byte colorChannel = Utils.StayInByte(channelValue + mutation);
-            Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
+            byte colorChannelR = Utils.StayInByte(channelValueR + mutation);
+            //G
+            byte channelValueG = Color.G;
+            mutation = random.Next(MUTATE_INTERVAL) - (MUTATE_INTERVAL / 2);
+            byte colorChannelG = Utils.StayInByte(channelValueR + mutation);
+            //B
+            byte channelValueB = Color.B;
+            mutation = random.Next(MUTATE_INTERVAL) - (MUTATE_INTERVAL / 2);
+            byte colorChannelB = Utils.StayInByte(channelValueR + mutation);
+            Color = Color.FromArgb(colorChannelR, colorChannelG, colorChannelB);
         }
 
         // Распечатать информацию о классе
