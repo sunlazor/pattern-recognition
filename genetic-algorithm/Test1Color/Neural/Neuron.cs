@@ -23,12 +23,17 @@ namespace Neural
             for (int i = 0; i < InputCount; i++)
             {
                 x[i] = 0;
-                w[i] = random.NextDouble();// - 0.5d;
+                w[i] = random.NextDouble() - 0.5d;
             }
             y = 0;
             sum = 0;
-            h = 1;
+            h = 0.1;
             w0 = 1;
+        }
+
+        public static double InputTransform(int input)
+        {
+            return (Convert.ToDouble(input) / Convert.ToDouble(byte.MaxValue));//-0.5d;
         }
     }
 }

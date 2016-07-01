@@ -35,12 +35,12 @@ namespace Neural
         {
             int techNum;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 500; i++)
             {
                 // Черный
                 for (int j = 0; j < net.neurons.Count; j++)
                 {
-                    net.neurons[j].x[0] = 1;
+                    net.neurons[j].x[0] = Neuron.InputTransform(0);
                     //net.neurons[i].x[1] = 0;
                 }
                 techNum = 0;
@@ -49,7 +49,7 @@ namespace Neural
                 // Серый
                 for (int j = 0; j < net.neurons.Count; j++)
                 {
-                    net.neurons[j].x[0] = 122;
+                    net.neurons[j].x[0] = Neuron.InputTransform(127);
                     //net.neurons[i].x[1] = 1;
                 }
                 techNum = 1;
@@ -58,7 +58,7 @@ namespace Neural
                 // Белый
                 for (int j = 0; j < net.neurons.Count; j++)
                 {
-                    net.neurons[j].x[0] = 255;
+                    net.neurons[j].x[0] = Neuron.InputTransform(255);
                     //net.neurons[i].x[1] = 1;
                 }
                 techNum = 2;
@@ -68,22 +68,28 @@ namespace Neural
 
         private void btBlack_Click(object sender, EventArgs e)
         {
-            net.neurons[0].x[0] = 0;
-            net.neurons[1].x[0] = 0;
+            for (int j = 0; j < net.neurons.Count; j++)
+            {
+                net.neurons[j].x[0] = Neuron.InputTransform(0);
+            }
             net.Work();
         }
 
-private void btGray_Click(object sender, EventArgs e)
+        private void btGray_Click(object sender, EventArgs e)
         {
-            net.neurons[0].x[0] = 122;
-            net.neurons[1].x[0] = 122;
+            for (int j = 0; j < net.neurons.Count; j++)
+            {
+                net.neurons[j].x[0] = Neuron.InputTransform(127);
+            }
             net.Work();
         }
 
         private void btWhite_Click(object sender, EventArgs e)
         {
-            net.neurons[0].x[0] = 255;
-            net.neurons[1].x[0] = 255;
+            for (int j = 0; j < net.neurons.Count; j++)
+            {
+                net.neurons[j].x[0] = Neuron.InputTransform(255);
+            }
             net.Work();
         }
     }

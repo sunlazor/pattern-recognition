@@ -35,7 +35,7 @@ namespace Neural
             for (int i = 0; i < InputCount; ++i)
             {
                 // Функция взвешенной  суммы (сумматор)
-                Net += (neurons[neuronNumber].x[i] /*- 0.5*/) * neurons[neuronNumber].w[i];
+                Net += (neurons[neuronNumber].x[i] - 0.5) * neurons[neuronNumber].w[i];
             }
             Net += neurons[neuronNumber].w0;
             neurons[neuronNumber].sum = Net;
@@ -90,7 +90,7 @@ namespace Neural
 
         public static double Activation(double x)
         {
-            return 1d / (1 + Math.Pow(Math.E, -x));// - 0.5;
+            return 1d / (1 + Math.Pow(Math.E, -x)) - 0.5;
         }
 
         public static double ActivationDerevative(double x)
