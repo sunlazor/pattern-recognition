@@ -7,7 +7,7 @@ namespace Genetic
 {
     class Algorithm
     {
-        private const int GENERATION_COUNT = 3000;
+        private const int GENERATION_COUNT = 1000;
         private const int GENERATION_SIZE = 10;
 
         private int currentGenerationNumber = 0;
@@ -31,6 +31,7 @@ namespace Genetic
         // Главная функция работы алгоритма
         public int Work()
         {
+            form.WriteLog(form.goal.ToString() + "\n");
             for (currentGenerationNumber = 0; currentGenerationNumber < GENERATION_COUNT; currentGenerationNumber++)
             {
                 if (currentGeneration == null)

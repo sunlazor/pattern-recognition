@@ -70,41 +70,43 @@ namespace Genetic
         {
             for (int i = 0; i < Size; i += 2)
             {
+                byte number1 = 170; // 10101010
+                byte number2 = 85;  // 01010101
+
                 // R
                 byte value1 = generation[i].Color.R;
                 byte value2 = generation[i + 1].Color.R;
 
-                int tmp1 = value1 & 240; // 11110000
-                int tmp2 = value2 & 31; // 00001111
+                int tmp1 = value1 & number1;
+                int tmp2 = value2 & number2;
                 byte colorChannelR1 = Utils.StayInByte(tmp1 | tmp2);
 
-                tmp1 = value2 & 240; // 11110000
-                tmp2 = value1 & 31; // 00001111
+                tmp1 = value2 & number1;
+                tmp2 = value1 & number2;
                 byte colorChannelR2 = Utils.StayInByte(tmp1 | tmp2);
 
                 // G
                 value1 = generation[i].Color.G;
                 value2 = generation[i + 1].Color.G;
 
-                tmp1 = value1 & 240; // 11110000
-                tmp2 = value2 & 31; // 00001111
+                tmp1 = value1 & number1;
+                tmp2 = value2 & number2;
                 byte colorChannelG1 = Utils.StayInByte(tmp1 | tmp2);
 
-                tmp1 = value2 & 240; // 11110000
-                tmp2 = value1 & 31; // 00001111
+                tmp1 = value2 & number1;
+                tmp2 = value1 & number2;
                 byte colorChannelG2 = Utils.StayInByte(tmp1 | tmp2);
 
                 // B
-
                 value1 = generation[i].Color.B;
                 value2 = generation[i + 1].Color.B;
 
-                tmp1 = value1 & 240; // 11110000
-                tmp2 = value2 & 31; // 00001111
+                tmp1 = value1 & number1;
+                tmp2 = value2 & number2;
                 byte colorChannelB1 = Utils.StayInByte(tmp1 | tmp2);
 
-                tmp1 = value2 & 240; // 11110000
-                tmp2 = value1 & 31; // 00001111
+                tmp1 = value2 & number1;
+                tmp2 = value1 & number2;
                 byte colorChannelB2 = Utils.StayInByte(tmp1 | tmp2);
                 
                 generation[i].Color = Color.FromArgb(colorChannelR1, colorChannelG1, colorChannelB1);
@@ -142,9 +144,7 @@ namespace Genetic
             double value = 0;
 
             double midValue =
-                Convert.ToDouble(GoalColor.B + GoalColor.R + GoalColor.G)
-                /
-                Convert.ToDouble(byte.MaxValue * 3);
+                Convert.ToDouble(GoalColor.B + GoalColor.R + GoalColor.G) / 3;
 
             if (midValue > byte.MaxValue / 2)
                 value = midValue;

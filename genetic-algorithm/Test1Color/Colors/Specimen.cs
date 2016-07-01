@@ -16,7 +16,7 @@ namespace Genetic
         
         public Specimen()
         {
-            Color = Color.FromArgb(random.Next(75, 175), random.Next(75, 175),random.Next(75, 175));
+            Color = Color.FromArgb(random.Next(0, 10), random.Next(0, 10),random.Next(0, 10));
             CrossoverProbability = 0;
             Fit = 0;
         }
