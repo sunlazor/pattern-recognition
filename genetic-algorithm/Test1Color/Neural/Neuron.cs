@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Neural
 {
@@ -26,7 +23,7 @@ namespace Neural
             for (int i = 0; i < InputCount; i++)
             {
                 x[i] = 0;
-                w[i] = random.NextDouble() - 0.5d;
+                w[i] = random.NextDouble();// - 0.5d;
             }
             y = 0;
             sum = 0;

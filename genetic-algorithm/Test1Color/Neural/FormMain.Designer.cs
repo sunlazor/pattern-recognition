@@ -104,7 +104,7 @@
             this.tbBlack.Location = new System.Drawing.Point(65, 33);
             this.tbBlack.Name = "tbBlack";
             this.tbBlack.ReadOnly = true;
-            this.tbBlack.Size = new System.Drawing.Size(55, 20);
+            this.tbBlack.Size = new System.Drawing.Size(131, 20);
             this.tbBlack.TabIndex = 4;
             // 
             // btTeach
@@ -145,14 +145,16 @@
             // 
             this.tbWhite.Location = new System.Drawing.Point(65, 82);
             this.tbWhite.Name = "tbWhite";
-            this.tbWhite.Size = new System.Drawing.Size(100, 20);
+            this.tbWhite.ReadOnly = true;
+            this.tbWhite.Size = new System.Drawing.Size(131, 20);
             this.tbWhite.TabIndex = 9;
             // 
             // tbGray
             // 
             this.tbGray.Location = new System.Drawing.Point(65, 57);
             this.tbGray.Name = "tbGray";
-            this.tbGray.Size = new System.Drawing.Size(100, 20);
+            this.tbGray.ReadOnly = true;
+            this.tbGray.Size = new System.Drawing.Size(131, 20);
             this.tbGray.TabIndex = 8;
             // 
             // label4

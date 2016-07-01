@@ -14,11 +14,14 @@ namespace Neural
         public FormMain()
         {
             InitializeComponent();
+
+            FillOutput();
+            net = new Network(3, 1, this);
         }
 
-        Network net = new Network(3, 1);
+        Network net;
 
-        public List<TextBox> output;
+        public List<TextBox> output = new List<TextBox>();
 
         private void FillOutput()
         {
@@ -34,14 +37,16 @@ namespace Neural
 
             for (int i = 0; i < 100; i++)
             {
+                // Черный
                 for (int j = 0; j < net.neurons.Count; j++)
                 {
-                    net.neurons[j].x[0] = 0;
+                    net.neurons[j].x[0] = 1;
                     //net.neurons[i].x[1] = 0;
                 }
                 techNum = 0;
                 net.Teach(techNum);
 
+                // Серый
                 for (int j = 0; j < net.neurons.Count; j++)
                 {
                     net.neurons[j].x[0] = 122;
@@ -50,6 +55,7 @@ namespace Neural
                 techNum = 1;
                 net.Teach(techNum);
 
+                // Белый
                 for (int j = 0; j < net.neurons.Count; j++)
                 {
                     net.neurons[j].x[0] = 255;
@@ -64,21 +70,21 @@ namespace Neural
         {
             net.neurons[0].x[0] = 0;
             net.neurons[1].x[0] = 0;
-            net.Work(this);
+            net.Work();
+        }
+
+private void btGray_Click(object sender, EventArgs e)
+        {
+            net.neurons[0].x[0] = 122;
+            net.neurons[1].x[0] = 122;
+            net.Work();
         }
 
         private void btWhite_Click(object sender, EventArgs e)
         {
             net.neurons[0].x[0] = 255;
             net.neurons[1].x[0] = 255;
-            net.Work(this);
-        }
-
-        private void btGray_Click(object sender, EventArgs e)
-        {
-            net.neurons[0].x[0] = 122;
-            net.neurons[1].x[0] = 122;
-            net.Work(this);
+            net.Work();
         }
     }
 }

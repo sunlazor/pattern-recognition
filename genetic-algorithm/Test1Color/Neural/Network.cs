@@ -16,10 +16,11 @@ namespace Neural
         // Форма для вывода
         FormMain outForm;
 
-        public Network(int neuronCount, int neuronInputCount, FormMain )
+        public Network(int neuronCount, int neuronInputCount, FormMain outputForm)
         {
             NeuronCount = neuronCount;
             InputCount = neuronInputCount;
+            outForm = outputForm;
             neurons = new List<Neuron>(NeuronCount);
             for (int i = 0; i < NeuronCount; ++i)
             {
@@ -34,7 +35,7 @@ namespace Neural
             for (int i = 0; i < InputCount; ++i)
             {
                 // Функция взвешенной  суммы (сумматор)
-                Net += (neurons[neuronNumber].x[i] - 0.5) * neurons[neuronNumber].w[i];
+                Net += (neurons[neuronNumber].x[i] /*- 0.5*/) * neurons[neuronNumber].w[i];
             }
             Net += neurons[neuronNumber].w0;
             neurons[neuronNumber].sum = Net;
@@ -43,9 +44,8 @@ namespace Neural
 
         // Определние образа
         // Возвращает номер нейрона  с макс выходом
-        public int Work(FormMain form)
+        public int Work()
         {
-            form = outForm;
             double Max = 0;
             int Num = 0;
             for (int i = 0; i < NeuronCount; i++)
@@ -57,7 +57,7 @@ namespace Neural
                 //    case 1: Console.WriteLine(neurons[1].y); break;
                 //    default: break;
                 //}
-                form.output[i].Text = neurons[i].y.ToString();
+                outForm.output[i].Text = neurons[i].y.ToString();
                 if (neurons[i].y > Max)
                 {
                     Max = neurons[i].y;
@@ -71,7 +71,7 @@ namespace Neural
         public int Teach(int Num)
         {
             // Расчет весов
-            Work(outForm);
+            Work();
             for (int i = 0; i < NeuronCount; ++i)
             {
                 double t = 0;
@@ -90,7 +90,7 @@ namespace Neural
 
         public static double Activation(double x)
         {
-            return 1d / (1 + Math.Pow(Math.E, -x)) - 0.5;
+            return 1d / (1 + Math.Pow(Math.E, -x));// - 0.5;
         }
 
         public static double ActivationDerevative(double x)
