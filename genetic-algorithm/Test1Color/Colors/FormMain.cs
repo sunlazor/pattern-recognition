@@ -29,8 +29,11 @@ namespace Genetic
             //lbColorSelection.Visible = false;
             logText.Clear();
 
-            Algorithm main = new Algorithm(this, Convert.ToByte(tbGradation.Text));
+            byte channel = Convert.ToByte(tbGradation.Text);
+            Algorithm main = new Algorithm(this, channel);
             tbResult.Text = main.Work().ToString();
+
+            pColor.BackColor = Color.FromArgb(channel, channel, channel);
         }
     }
 }

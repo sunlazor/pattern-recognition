@@ -36,6 +36,7 @@
             this.tbResult = new System.Windows.Forms.TextBox();
             this.tbGradation = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.pColor = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btColorSelection
@@ -100,11 +101,19 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Градация серого";
             // 
+            // pColor
+            // 
+            this.pColor.Location = new System.Drawing.Point(36, 103);
+            this.pColor.Name = "pColor";
+            this.pColor.Size = new System.Drawing.Size(200, 100);
+            this.pColor.TabIndex = 12;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 698);
+            this.Controls.Add(this.pColor);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbGradation);
             this.Controls.Add(this.tbResult);
@@ -129,6 +138,7 @@
         private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.TextBox tbGradation;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel pColor;
     }
 }
 
