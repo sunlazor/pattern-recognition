@@ -15,9 +15,12 @@ namespace Genetic
         Generation currentGeneration;
         FormMain form;
 
-        public Algorithm(FormMain logForm)
+        byte _goalColor;
+
+        public Algorithm(FormMain logForm, byte goalColor)
         {
             form = logForm;
+            _goalColor = goalColor;
         }
 
         private string PrintCurrentGeneration()
@@ -34,7 +37,7 @@ namespace Genetic
             for (currentGenerationNumber = 0; currentGenerationNumber < GENERATION_COUNT; currentGenerationNumber++)
             {
                 if (currentGeneration == null)
-                    currentGeneration = new Generation(GENERATION_SIZE);
+                    currentGeneration = new Generation(GENERATION_SIZE, _goalColor);
                 else
                     currentGeneration = new Generation(currentGeneration);
                 currentGeneration.CalculateFitness();

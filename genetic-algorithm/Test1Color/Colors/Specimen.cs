@@ -17,7 +17,7 @@ namespace Genetic
         public Specimen()
         {
             //rewrite for multichannel
-            byte colorChannel = Utils.StayInByte(random.Next(75, 175));
+            byte colorChannel = Utils.StayInByte(random.Next(0, 10));
             Color = Color.FromArgb(colorChannel, colorChannel, colorChannel);
             CrossoverProbability = 0;
             Fit = 0;

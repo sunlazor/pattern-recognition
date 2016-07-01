@@ -13,7 +13,7 @@ namespace Genetic
         }
 
         // Эталонный цвет к которому идет приближение
-        public Color goal;
+        public byte goal;
 
         public void WriteLog(string text)
         {
@@ -22,14 +22,14 @@ namespace Genetic
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Выбор цвета
-            colorDialog.ShowDialog();
-            goal = colorDialog.Color;
-            pChosenOne.BackColor = goal;
-            lbColorSelection.Visible = false;
+            //// Выбор цвета
+            //colorDialog.ShowDialog();
+            //goal = colorDialog.Color;
+            //pChosenOne.BackColor = goal;
+            //lbColorSelection.Visible = false;
+            logText.Clear();
 
-
-            Algorithm main = new Algorithm(this);
+            Algorithm main = new Algorithm(this, Convert.ToByte(tbGradation.Text));
             tbResult.Text = main.Work().ToString();
         }
     }

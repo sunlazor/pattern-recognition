@@ -30,42 +30,23 @@
         {
             this.btColorSelection = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.pChosenOne = new System.Windows.Forms.Panel();
-            this.lbColorSelection = new System.Windows.Forms.Label();
             this.logText = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbResult = new System.Windows.Forms.TextBox();
-            this.pChosenOne.SuspendLayout();
+            this.tbGradation = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btColorSelection
             // 
-            this.btColorSelection.Location = new System.Drawing.Point(88, 148);
+            this.btColorSelection.Location = new System.Drawing.Point(75, 72);
             this.btColorSelection.Name = "btColorSelection";
             this.btColorSelection.Size = new System.Drawing.Size(110, 23);
             this.btColorSelection.TabIndex = 0;
             this.btColorSelection.Text = "Выбор цвета";
             this.btColorSelection.UseVisualStyleBackColor = true;
             this.btColorSelection.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pChosenOne
-            // 
-            this.pChosenOne.Controls.Add(this.lbColorSelection);
-            this.pChosenOne.Location = new System.Drawing.Point(42, 42);
-            this.pChosenOne.Name = "pChosenOne";
-            this.pChosenOne.Size = new System.Drawing.Size(200, 100);
-            this.pChosenOne.TabIndex = 2;
-            // 
-            // lbColorSelection
-            // 
-            this.lbColorSelection.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbColorSelection.AutoSize = true;
-            this.lbColorSelection.Location = new System.Drawing.Point(60, 40);
-            this.lbColorSelection.Name = "lbColorSelection";
-            this.lbColorSelection.Size = new System.Drawing.Size(83, 13);
-            this.lbColorSelection.TabIndex = 0;
-            this.lbColorSelection.Text = "Выберите цвет";
             // 
             // logText
             // 
@@ -103,21 +84,36 @@
             this.tbResult.Size = new System.Drawing.Size(54, 20);
             this.tbResult.TabIndex = 9;
             // 
+            // tbGradation
+            // 
+            this.tbGradation.Location = new System.Drawing.Point(82, 38);
+            this.tbGradation.Name = "tbGradation";
+            this.tbGradation.Size = new System.Drawing.Size(100, 20);
+            this.tbGradation.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(86, 22);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Градация серого";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 698);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.tbGradation);
             this.Controls.Add(this.tbResult);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.logText);
-            this.Controls.Add(this.pChosenOne);
             this.Controls.Add(this.btColorSelection);
             this.Name = "FormMain";
             this.Text = "Генетический алгоритм - Подбор цвета";
-            this.pChosenOne.ResumeLayout(false);
-            this.pChosenOne.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,12 +123,12 @@
 
         private System.Windows.Forms.Button btColorSelection;
         private System.Windows.Forms.ColorDialog colorDialog;
-        private System.Windows.Forms.Panel pChosenOne;
         private System.Windows.Forms.RichTextBox logText;
-        private System.Windows.Forms.Label lbColorSelection;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbResult;
+        private System.Windows.Forms.TextBox tbGradation;
+        private System.Windows.Forms.Label label2;
     }
 }
 
